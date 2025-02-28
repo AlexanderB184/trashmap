@@ -5,6 +5,8 @@
  * Header only library for a string to string style append only hashmap
  * This library is not thread safe.
  * Uses linear probing style hash map with an internal arena for map items.
+ * Library works in C from c99 and C++ from c++20 without any warnings from `-Wall -Wextra -Wpedantic`.
+ * This library was made for my own purposes for parsing HTTP headers but can be used in many contexts.
  * 
  * Using the library:
  * 
@@ -12,6 +14,7 @@
  * 
  * #define TRASHMAP_IMPL
  * #include "trashmap.h"
+ * // your code here
  * 
  * 
  * Features:
@@ -22,14 +25,24 @@
  * TRASHMAP_REALLOC(PTR, SIZE)
  * TRASHMAP_FREE(PTR)
  * 
- * All asserts can be removed by defining TRASHMAP_STRIP_ASSERTS prior to including or using `-DTRASHMAP_STRIP_ASSERTS`
+ * All asserts can be removed by defining `TRASHMAP_STRIP_ASSERTS` prior to including or using `-DTRASHMAP_STRIP_ASSERTS`
  * Alternatively the default assert function can be overwritten by creating a custom define for:
  * 
  * TRASHMAP_ASSERT(COND)
  * 
- * To use a custom hash function define TRASHMAP_CUSTOM_HASH above the implementing include,
- * and then implement a function with the signature:
- * uint32_t trashmap_hash(const char * key);
+ * To use a custom hash function define `TRASHMAP_CUSTOM_HASH` above the implementing include,
+ * and then implement a function with exact same signature, i.e.
+ * 
+ * 
+ * #define TRASHMAP_CUSTOM_HASH
+ * #define TRASHMAP_IMPL
+ * #include "trashmap.h"
+ * 
+ * // function must have this exact signature
+ * uint32_t trashmap_hash(const char * key) {
+ *     // custom hash function implementation
+ *     // ...
+ * }
  * 
  * Api:
  * 
@@ -58,13 +71,14 @@
  * trashmap_reserve: reserves enough space for `extra` addition items
  * void trashmap_reserve(trashmap_t* map, size_t extra);
  * 
- * reimplementation of needed string.h functionality
+ * Reimplementation of needed string.h functionality. 
+ * This removes string.h as a dependency and means that the only dependency is malloc/realloc/free
  * 
  * trashmap_strcmp: reimplementation of libc strcmp
  * int trashmap_strcmp(const char * lhs, const char * rhs);
  * 
  * trashmap_memset: reimplementation of libc memset
- * void * trashmap_memset(void * dest, char byte, size_t count);
+ * void * trashmap_memset(void * dest, unsigned char byte, size_t count);
  * 
  * 
  * 

@@ -116,7 +116,7 @@ trashmap_reserve: reserves enough space for `extra` addition items
 void trashmap_reserve(trashmap_t* map, size_t extra);
 ```
 
-reimplementation of needed string.h functionality. This removes string.h as a dependency and means that the only dependency is malloc/realloc/free
+Reimplementation of needed string.h functionality. This removes string.h as a dependency and means that the only dependency is malloc/realloc/free
 
 trashmap_strcmp: reimplementation of libc strcmp
 
@@ -127,5 +127,5 @@ int trashmap_strcmp(const char * lhs, const char * rhs);
 trashmap_memset: reimplementation of libc memset
 
 ``` C
-void * trashmap_memset(void * dest, char byte, size_t count);
+void * trashmap_memset(void * dest, unsigned char byte, size_t count);
 ```
