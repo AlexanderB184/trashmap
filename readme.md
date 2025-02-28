@@ -1,14 +1,13 @@
 # Trash Map
 
-Header only library for a string to string style append only hashmap
-This library is not thread safe.
-Uses linear probing style hash map with an internal arena for map items.
+Header only library for a string to string style append only hashmap.
+This library is not thread safe. It uses a linear probing style hash map with an internal arena for map items.
 Library works in C from c99 and C++ from c++20 without any warnings from `-Wall -Wextra -Wpedantic`.
-This library was made for my own purposes for parsing HTTP headers but can be used in many contexts.
+This library was made for my purposes, such as parsing HTTP headers, but it can be used in many contexts.
 
 ## Using the library
 
-In exactly ONE file define TRASHMAP_IMPL prior to including trashmap.h e.g.
+In exactly ONE file define TRASHMAP_IMPL before including trashmap.h e.g.
 
 ``` C
 #define TRASHMAP_IMPL
@@ -42,8 +41,8 @@ The default allocator (libc) for trashmap can be overwritten by creating custom 
 #define TRASHMAP_FREE(PTR)
 ```
 
-All asserts can be removed by defining `TRASHMAP_STRIP_ASSERTS` prior to including or using `-DTRASHMAP_STRIP_ASSERTS`
-Alternatively the default assert function can be overwritten by creating a custom define for:
+All asserts can be removed by defining `TRASHMAP_STRIP_ASSERTS` before including or using `-DTRASHMAP_STRIP_ASSERTS`.
+Alternatively, the default assert function can be overwritten by creating a custom define for:
 
 ``` C
 #define TRASHMAP_ASSERT(COND)
@@ -116,7 +115,7 @@ trashmap_reserve: reserves enough space for `extra` addition items
 void trashmap_reserve(trashmap_t* map, size_t extra);
 ```
 
-Reimplementation of needed string.h functionality. This removes string.h as a dependency and means that the only dependency is malloc/realloc/free
+Reimplementation of the necessary string.h functionality. This removes string.h as a dependency and means that the only dependency is malloc/realloc/free
 
 trashmap_strcmp: reimplementation of libc strcmp
 
